@@ -1,0 +1,542 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+	<META HTTP-EQUIV="Content-language" CONTENT="vi">
+	<meta name="google-signin-client_id" content="495576913650-eff1dhuth0oi6d8b9584ps9pebopsv5k.apps.googleusercontent.com">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+
+	<style>
+		tr.header{
+			font-weight: bold;
+			color: white;
+			background-color: deepskyblue;
+		}
+
+		td{
+			padding: 10px;
+		}
+
+		body {font-family: Arial, Helvetica, sans-serif;}
+
+		/* Full-width input fields */
+		input[type=text], input[type=password] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+		}
+
+		/* Set a style for all buttons */
+		button {
+			background-color: #4CAF50;
+			color: white;
+
+			border: none;
+			cursor: pointer;
+
+		}
+
+		button:hover {
+			opacity: 0.8;
+		}
+
+		/* Extra styles for the cancel button */
+		.cancelbtn {
+			width: 100%;
+			padding: 10px 18px;
+			background-color: #f44336;
+
+		}
+		.btnlg{
+			border-radius: 5%;
+
+			padding: 12px 12px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+		}
+
+		/* Center the image and position the close button */
+		.imgcontainer {
+			text-align: center;
+			margin: 24px 0 12px 0;
+			position: relative;
+		}
+
+		img.avatar {
+			width: 40%;
+			border-radius: 50%;
+		}
+
+		.container {
+			padding: 16px;
+		}
+
+		span.psw {
+			float: right;
+			padding-top: 16px;
+		}
+
+		/* The Modal (background) */
+		.modal {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			padding-top: 30px;
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+			background-color: #fefefe;
+			margin: 1% auto ; /* 5% from the top, 15% from the bottom and centered */
+			border: 1px solid #888;
+			width: 30%; /* Could be more or less, depending on screen size */
+		}
+
+		/* The Close Button (x) */
+		.close {
+			position: absolute;
+			right: 25px;
+			top: 0;
+			color: #000;
+			font-size: 35px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: red;
+			cursor: pointer;
+		}
+
+		/* Add Zoom Animation */
+		.animate {
+			-webkit-animation: animatezoom 0.6s;
+			animation: animatezoom 0.6s
+		}
+
+		@-webkit-keyframes animatezoom {
+			from {-webkit-transform: scale(0)}
+			to {-webkit-transform: scale(1)}
+		}
+
+		@keyframes animatezoom {
+			from {transform: scale(0)}
+			to {transform: scale(1)}
+		}
+
+		/* Change styles for span and cancel button on extra small screens */
+		@media screen and (max-width: 300px) {
+			span.psw {
+				display: block;
+				float: none;
+			}
+			.cancelbtn {
+				width: 100%;
+			}
+		}
+		.comment{
+			width: 100%;
+			margin: auto;
+		}
+	</style>
+
+</head>
+<body>
+<div>
+
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark topnav" >
+	<div class="col-lg">
+		<ul class="navbar-nav ">
+			<li class="nav-item active">
+				<img src="{% static "slide/home.jpg" %}" height="50px">
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="#"> trang chủ</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">bảng xếp hạng</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">thể loại</a>
+			</li>
+			<li class="nav-item" >
+				<a class="nav-link disabled" id="up" href="#">tải lên</a>
+			</li>
+			<li class="nav-item" >
+				<a class="nav-link  " href="#" id="status" onclick="document.getElementById('id01').style.display='block'">đăng nhập</a>
+			</li>
+			<div id="status1" ></div>
+
+		</ul>
+
+	</div>
+
+	<div >
+		<form  class="form-inline" action="" >
+			<input class="form-control mr-sm-2" type="text" placeholder="tìm kiếm">
+			<button class="btn btn-success" type="submit">tìm kiếm</button>
+		</form>
+	</div>
+</nav>
+
+</div>
+
+<div class="container">
+
+	<div id="id01" class="modal">
+
+		<form class="modal-content animate" action="/action_page.php">
+			<div class="imgcontainer">
+				<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close ">&times;</span>
+				<img src="img/avatar.png" alt="Avatar" class="avatar">
+			</div>
+
+			<div class="container">
+				<label for="uname"><b>Tài Khoản</b></label>
+				<input type="text" placeholder="Nhập Tài Khoản" name="uname" required>
+
+				<label for="psw"><b>Mật Khẩu</b></label>
+				<input type="password" placeholder="Nhập Mật Khẩu" name="psw" required>
+				<div class="container" >
+
+						<button type="submit" class="btn btn-success col-lg-12 col-xl-12 col-md-12 col-sm-12 ">Đăng Nhập</button>
+
+						<div >
+
+
+							<div class="g-signin2   " data-onsuccess="onSignIn"></div>
+
+
+							<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="false" >
+							</fb:login-button>
+						</div>
+
+
+
+				</div>
+
+				<label>
+					<input type="checkbox" checked="checked" name="remember"> Nhớ tôi trên thiết bị này
+				</label>
+			</div>
+
+			<div class="container" style="background-color:#f1f1f1">
+				<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn btnlg">Hủy Đăng Nhập</button>
+				<span class="psw">Quên <a href="#">Mật Khẩu?</a></span>
+			</div>
+		</form>
+	</div>
+	<script>
+
+
+		// Get the modal
+		var modal = document.getElementById('id01');
+		var upload=document.getElementById('up');
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+
+
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			console.log('Name: ' + profile.getName());
+			console.log('Image URL: ' + profile.getImageUrl());
+			console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+			document.getElementById('status').innerHTML =
+				'Xin Chào ' + profile.getName() + '!';
+			modal.style.display = "none";
+			upload.enabled
+		}
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+				document.getElementById('status').innerHTML =
+					'Đăng Nhập ';
+			});
+		}
+	</script>
+
+	<div class="row">
+		<div class="col-lg-9 col-xl-9 col-md-9 col-sm-12">
+			<div id="demo" class="carousel slide" data-ride="carousel">
+
+				<!-- Indicators -->
+
+				<ul class="carousel-indicators">
+					<li data-target="#demo" data-slide-to="0" class="active"></li>
+					<li data-target="#demo" data-slide-to="1"></li>
+					<li data-target="#demo" data-slide-to="2"></li>
+					<li data-target="#demo" data-slide-to="3"></li>
+					<li data-target="#demo" data-slide-to="4"></li>
+				</ul>
+				<!-- The slideshow -->
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="{% static "slide/i1.jpg" %}" alt="Los Angeles" width="100%"  >
+					</div>
+					<div class="carousel-item">
+						<img src="{% static "slide/i2.jpg" %}" alt="Chicago" width="100%" >
+					</div>
+					<div class="carousel-item">
+						<img src="{% static "slide/i3.jpg" %}" alt="New York" width="100%" >
+					</div>
+					<div class="carousel-item">
+						<img src="{% static "slide/i4.jpg" %}" alt="i4" width="100%" >
+					</div>
+					<div class="carousel-item">
+						<img src="{% static "slide/i5.jpg" %}" alt="i5" width="100%" >
+					</div>
+				</div>
+
+				<!-- Left and right controls -->
+				<a class="carousel-control-prev" href="#demo" data-slide="prev">
+					<span class="carousel-control-prev-icon"></span>
+				</a>
+				<a class="carousel-control-next" href="#demo" data-slide="next">
+					<span class="carousel-control-next-icon"></span>
+				</a>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-xl-3 col-md-3 col-sm-12">
+			<h3 style="color: dodgerblue"> bảng xếp hạng ></h3>
+			<table width="100%">
+				<tr class="header">
+					<td>
+					</td>
+					<td colspan="5">tên bài hát	</td>
+					<td colspan="5">tên ca sỹ</td>
+					<td>lượt nghe</td>
+				</tr>
+				<tr>
+					<td><img src="{% static "slide/icon.jpg" %}" width="30%"></td>
+					<td colspan="5"><P>ten bai hat</P> </td>
+					<td colspan="5"><p>ten ca sy</p> </td>
+					<td>5000</td>
+				</tr>
+				<tr>
+					<td><img src="{% static "slide/icon.jpg" %}" width="30%"></td>
+					<td colspan="5"><P>ten bai hat</P> </td>
+					<td colspan="5"><p>ten ca sy</p> </td>
+					<td>5000</td>
+				</tr>
+				<tr>
+					<td><img src="{% static "slide/icon.jpg" %}" width="30%"></td>
+					<td colspan="5"><P>ten bai hat</P> </td>
+					<td colspan="5"><p>ten ca sy</p> </td>
+					<td>5000</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- nghe nhieu nhat -->
+	<div class="row">
+		<div class="col-lg-9 col-xl-9 col-md-9 col-sm-12">
+			<h3 style="color: dodgerblue"> nghe nhiều nhất ></h3>
+			<table width="100%">
+				<tr class="header">
+					<td>
+					</td>
+					<td colspan="5">tên bài hát	</td>
+					<td colspan="5">tên ca sỹ</td>
+					<td>lượt nghe</td>
+				</tr>
+				{% for song in songs %}
+				<tr>
+					<td><img src="{% static "slide/icon.jpg" %}" width="30px"></td>
+					<td colspan="5"><a href="{% url 'playmusic:play' %}">{{song.0}}</a> </td>
+					<td colspan="5"><p>{{song.1}}</p> </td>
+					<td>5000</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div class="col-lg-3 col-xl-3 col-md-3 col-sm-12">
+			<h3 style="color: dodgerblue"> mới tải lên  ></h3>
+			<table width="100%">
+				<tr class="header">
+					<td>
+					</td>
+					<td colspan="5">tên bài hát	</td>
+					<td colspan="5">tên ca sỹ</td>
+					<td>lượt nghe</td>
+				</tr>
+				<tr>
+					<td><img src="{% static "slide/icon.jpg" %}" width="30%"></td>
+					<td colspan="5"><P>ten bai hat</P> </td>
+					<td colspan="5"><p>ten ca sy</p> </td>
+					<td>5000</td>
+				</tr>
+				<tr>
+					<td><img src="{% static "slide/icon.jpg" %}" width="30%"></td>
+					<td colspan="5"><P>ten bai hat</P> </td>
+					<td colspan="5"><p>ten ca sy</p> </td>
+					<td>5000</td>
+				</tr>
+				<tr>
+					<td><img src="{% static "slide/icon.jpg" %}" width="30%"></td>
+					<td colspan="5"><P>ten bai hat</P> </td>
+					<td colspan="5"><p>ten ca sy</p> </td>
+					<td>5000</td>
+				</tr>
+			</table>
+		</div>
+
+
+	</div>
+</div>
+<div class="btn-group">
+	<button onclick='logoutfb();' class="btn-primary">
+		logout facebook
+	</button>
+	<button onclick="signOut();" class="btn-danger">
+		logout google
+	</button>
+	<!-- Indicators
+/*
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2&appId=403523343523282&autoLogAppEvents=1';
+			fjs.parentNode.insertBefore(js, fjs);
+
+		}(document, 'script', 'facebook-jssdk'));</script>
+*/
+-->
+</div>
+
+<div class="container">
+	<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+	<div class="fb-comments" data-href="https://localhost:8888" data-width="100%" data-numposts="10"></div>
+</div>
+
+
+
+
+</body>
+
+<script>
+	function statusChangeCallback(response) {
+		console.log('statusChangeCallback');
+		console.log(response);
+
+		if (response.status === 'connected') {
+			// Logged into your app and Facebook.
+			testAPI();
+		} else {
+			// The person is not logged into your app or we are unable to tell.
+			document.getElementById('status').innerHTML = 'Đăng Nhập';
+		}
+	}
+
+
+	function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+
+	window.fbAsyncInit = function() {
+		/*
+		FB.init({
+			appId      : '403523343523282',
+			cookie     : true,  // enable cookies to allow the server to access
+								// the session
+			xfbml      : true,  // parse social plugins on this page
+			version    : 'v3.2' // use graph api version 2.8
+		});
+		*/
+
+
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+
+	};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2&appId=403523343523282&autoLogAppEvents=1';
+			fjs.parentNode.insertBefore(js, fjs);
+
+		}(document, 'script', 'facebook-jssdk'));
+
+	function testAPI() {
+
+		FB.api('/me', function(response) {
+			modal.style.display = "none";
+			document.getElementById('status').innerHTML = response.name;
+
+		});
+	}
+
+
+	function logoutfb() {
+		FB.getLoginStatus(function(response) {
+
+			if (response && response.status === 'connected') {
+
+				FB.logout(function(response) {
+					document.location.reload();
+				});
+			} else if (response.status === 'not_authorized')
+			{
+				FB.logout(function(response) {
+					document.location.reload();
+				});
+			}
+		});
+
+
+	}
+</script>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+
+
+
+
+</html>
+
+</html>
